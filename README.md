@@ -28,6 +28,10 @@ move (10) steps`}
 />
 ```
 
+## Development
+
+See [DEVELOPMENT.md](DEVELOPMENT.md).
+
 ## Notes
 
 - This component must run on the client. Use `client:load` or `client:idle`.
