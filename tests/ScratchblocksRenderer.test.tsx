@@ -1,5 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import ScratchblocksRenderer from '../src/ScratchblocksRenderer';
 
@@ -14,10 +14,22 @@ vi.mock('scratchblocks', () => {
     get render() {
       return renderMock;
     },
+    default: {
+      get parse() {
+        return parseMock;
+      },
+      get render() {
+        return renderMock;
+      },
+    },
   };
 });
 
 describe('ScratchblocksRenderer', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   beforeEach(() => {
     parseMock = vi.fn();
     renderMock = vi.fn();
@@ -29,7 +41,7 @@ describe('ScratchblocksRenderer', () => {
     parseMock?.mockReturnValue({ blocks: true });
     renderMock?.mockReturnValue(mockSvg);
 
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    vi.spyOn(console, 'log').mockImplementation(() => {});
 
     const { container } = render(
       <ScratchblocksRenderer code="when flag clicked" />
@@ -39,7 +51,6 @@ describe('ScratchblocksRenderer', () => {
       expect(container.querySelector('svg')).toBeTruthy();
     });
 
-    logSpy.mockRestore();
   });
 
   it('falls back to <pre> when parse fails', async () => {
@@ -47,7 +58,7 @@ describe('ScratchblocksRenderer', () => {
       throw new Error('bad parse');
     });
 
-    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     const { container } = render(
       <ScratchblocksRenderer code="move (10) steps" />
@@ -59,7 +70,6 @@ describe('ScratchblocksRenderer', () => {
       expect(pre?.textContent).toBe('move (10) steps');
     });
 
-    errorSpy.mockRestore();
   });
 
   it('passes style to scratchblocks render', async () => {
@@ -84,7 +94,7 @@ describe('ScratchblocksRenderer', () => {
     parseMock = undefined;
     renderMock = undefined;
 
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
 
     const { container } = render(
       <ScratchblocksRenderer code="say [hello!]" />
@@ -96,6 +106,5 @@ describe('ScratchblocksRenderer', () => {
       expect(pre?.textContent).toBe('say [hello!]');
     });
 
-    warnSpy.mockRestore();
   });
 });
