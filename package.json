@@ -4,6 +4,10 @@
   "type": "module",
   "description": "Unofficial Scratchblocks renderer React component for Astro.",
   "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -16,5 +20,15 @@
   },
   "dependencies": {
     "scratchblocks": "^3.6.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "jsdom": "^25.0.1",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
+    "vitest": "^2.0.5"
   }
 }
