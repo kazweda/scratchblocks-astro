@@ -20,3 +20,9 @@ npm test
 ```bash
 npm run test:watch
 ```
+
+## Merge
+
+```bash
+gh pr merge <PR_NUMBER> --delete-branch
+```
