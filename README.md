@@ -2,24 +2,24 @@
 
 Unofficial Scratchblocks renderer React component for Astro.
 
-## Install (GitHub direct)
+## Install
 
 ```bash
-npm install github:kazweda/scratchblocks-astro
+npm install @kazweda/scratchblocks-astro
 ```
 
 ```bash
-pnpm add kazweda/scratchblocks-astro
+pnpm add @kazweda/scratchblocks-astro
 ```
 
 ```bash
-yarn add kazweda/scratchblocks-astro
+yarn add @kazweda/scratchblocks-astro
 ```
 
 ## Usage (Astro MDX)
 
 ```mdx
-import { ScratchblocksRenderer } from 'scratchblocks-astro';
+import { ScratchblocksRenderer } from '@kazweda/scratchblocks-astro';
 
 <ScratchblocksRenderer
   client:load
@@ -51,20 +51,13 @@ See [DEVELOPMENT.md](DEVELOPMENT.md).
 export default {
   vite: {
     optimizeDeps: {
-      include: ['scratchblocks-astro'],
+      include: ['@kazweda/scratchblocks-astro'],
     },
     ssr: {
-      noExternal: ['scratchblocks-astro'],
+      noExternal: ['@kazweda/scratchblocks-astro'],
     },
   },
 };
-```
-
-## Tagging Releases (GitHub Direct)
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
 ```
 
 ## License
