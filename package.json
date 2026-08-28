@@ -1,6 +1,6 @@
 {
   "name": "@kazweda/scratchblocks-astro",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "description": "Unofficial Scratchblocks renderer React component for Astro.",
   "license": "MIT",
