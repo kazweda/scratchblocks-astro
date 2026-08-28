@@ -28,6 +28,15 @@ move (10) steps`}
 />
 ```
 
+### Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `code` | `string` | (required) | Scratchblocks syntax to render. |
+| `style` | `'scratch2' \| 'scratch3'` | `'scratch3'` | Block visual style. |
+| `languages` | `string[]` | `undefined` | Language codes passed through to `scratchblocks.parse`/`render` (e.g. `['en']`). Load extra languages with `scratchblocks.loadLanguages` beforehand. |
+| `className`, other HTML attributes | — | — | Passed through to the root `<div>`. Note: the `style` HTML attribute is not passed through, since `style` is reserved for the block style option above. |
+
 ## Development
 
 See [DEVELOPMENT.md](DEVELOPMENT.md).

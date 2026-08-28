@@ -1,13 +1,18 @@
 import { useEffect, useRef } from 'react';
+import type { HTMLAttributes } from 'react';
 
-interface ScratchblocksRendererProps {
+interface ScratchblocksRendererProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'style'> {
   code: string;
   style?: 'scratch2' | 'scratch3';
+  languages?: string[];
 }
 
 export default function ScratchblocksRenderer({
   code,
   style = 'scratch3',
+  languages,
+  ...rest
 }: ScratchblocksRendererProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -25,10 +30,13 @@ export default function ScratchblocksRenderer({
 
         if (parse && render) {
           try {
-            const blocks = parse(code);
-            const svg = render(blocks, {
+            const options: { style: 'scratch2' | 'scratch3'; languages?: string[] } = {
               style,
-            });
+            };
+            if (languages !== undefined) options.languages = languages;
+
+            const blocks = parse(code, options);
+            const svg = render(blocks, options);
 
             if (!isCurrent || !containerRef.current) return;
 
@@ -70,7 +78,7 @@ export default function ScratchblocksRenderer({
     return () => {
       isCurrent = false;
     };
-  }, [code, style]);
+  }, [code, style, languages]);
 
-  return <div ref={containerRef} style={{ marginBottom: '1rem' }} />;
+  return <div ref={containerRef} style={{ marginBottom: '1rem' }} {...rest} />;
 }
