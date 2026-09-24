@@ -1,1 +1,1 @@
-export { default as ScratchblocksRenderer } from './ScratchblocksRenderer';
+export { default as ScratchblocksRenderer } from './ScratchblocksRenderer.astro';

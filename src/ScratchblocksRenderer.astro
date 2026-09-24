@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'div'>, 'style'> {
+  code: string;
+  style?: 'scratch2' | 'scratch3';
+  languages?: string[];
+}
+
+const { code, style = 'scratch3', languages, ...rest } = Astro.props;
+---
+
+<div
+  {...rest}
+  style="margin-bottom: 1rem"
+  data-scratchblocks
+  data-code={code}
+  data-style={style}
+  data-languages={languages === undefined ? undefined : JSON.stringify(languages)}
+>
+</div>
+
+<script>
+  import { renderScratchblocks } from './render';
+
+  renderScratchblocks();
+  // With View Transitions (<ClientRouter />), new pages are swapped in
+  // without re-running this module, so render again after each navigation.
+  document.addEventListener('astro:page-load', () => renderScratchblocks());
+</script>

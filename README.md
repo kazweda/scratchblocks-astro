@@ -1,6 +1,8 @@
 # scratchblocks-astro
 
-Unofficial Scratchblocks renderer React component for Astro.
+Unofficial Scratchblocks renderer Astro component.
+
+No UI framework is required: the component is a plain `.astro` file, so you do not need `@astrojs/react` or React.
 
 ## Install
 
@@ -22,7 +24,6 @@ yarn add @kazweda/scratchblocks-astro
 import { ScratchblocksRenderer } from '@kazweda/scratchblocks-astro';
 
 <ScratchblocksRenderer
-  client:load
   code={`when flag clicked
 move (10) steps`}
 />
@@ -35,30 +36,26 @@ move (10) steps`}
 | `code` | `string` | (required) | Scratchblocks syntax to render. |
 | `style` | `'scratch2' \| 'scratch3'` | `'scratch3'` | Block visual style. |
 | `languages` | `string[]` | `undefined` | Language codes passed through to `scratchblocks.parse`/`render` (e.g. `['en']`). Load extra languages with `scratchblocks.loadLanguages` beforehand. |
-| `className`, other HTML attributes | — | — | Passed through to the root `<div>`. Note: the `style` HTML attribute is not passed through, since `style` is reserved for the block style option above. |
+| `class`, other HTML attributes | — | — | Passed through to the root `<div>`. Note: the `style` HTML attribute is not passed through, since `style` is reserved for the block style option above. |
 
 ## Development
 
 See [DEVELOPMENT.md](DEVELOPMENT.md).
 
-## Notes
+## How it works
 
-- This component must run on the client. Use `client:load` or `client:idle`.
-- If your build fails to resolve TS/JSX from this package, add it to `vite.ssr.noExternal` and `vite.optimizeDeps.include` in `astro.config.mjs`.
+The component renders an empty `<div>` with the props stored in `data-*` attributes, plus a small script that loads scratchblocks in the browser and replaces each `<div>` with the rendered SVG. If parsing fails, the code is shown as-is in a `<pre class="blocks">`.
 
-```js
-// astro.config.mjs
-export default {
-  vite: {
-    optimizeDeps: {
-      include: ['@kazweda/scratchblocks-astro'],
-    },
-    ssr: {
-      noExternal: ['@kazweda/scratchblocks-astro'],
-    },
-  },
-};
-```
+It works with several blocks on one page and with View Transitions (`<ClientRouter />`), where it renders again on `astro:page-load`.
+
+## Migrating from 0.3.x
+
+0.4.0 replaces the React component with an Astro component. To upgrade:
+
+1. Remove `client:load` (or `client:idle`) from `<ScratchblocksRenderer>`. Astro components do not take `client:*` directives; if left in, Astro logs a warning for each use.
+2. Rename `className` to `class`.
+3. The `vite.optimizeDeps.include` and `vite.ssr.noExternal` entries for this package in `astro.config.mjs` are no longer needed.
+4. If nothing else on your site uses React, you can remove `@astrojs/react`, `react` and `react-dom`.
 
 ## License
 
