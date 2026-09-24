@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Node.js 20 LTS
+- Node.js 22.12 or later (required by Astro 7)
 - npm
 
 ## Setup

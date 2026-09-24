@@ -1,9 +1,15 @@
 {
   "name": "@kazweda/scratchblocks-astro",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "type": "module",
-  "description": "Unofficial Scratchblocks renderer React component for Astro.",
+  "description": "Unofficial Scratchblocks renderer Astro component.",
   "license": "MIT",
+  "keywords": [
+    "astro-component",
+    "astro",
+    "scratch",
+    "scratchblocks"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -20,22 +26,17 @@
       "default": "./src/index.ts"
     }
   },
-  "peerDependencies": {
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19"
-  },
   "dependencies": {
     "scratchblocks": "^3.6.4"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
-    "@testing-library/react": "^16.0.1",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
+    "astro": "^7.3.4",
     "jsdom": "^29.1.1",
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19",
     "vitest": "^4.1.9"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
   }
 }
